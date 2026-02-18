@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Form Pendaftaran Lomba Ramadhan</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body {
+    background: linear-gradient(135deg, #0f9d58, #34a853);
+    min-height: 100vh;
+}
+
+.banner-ramadhan {
+    background: url('ssiku.png') center/cover no-repeat;
+    height: 200px;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+}
+
+.banner-overlay {
+    background: rgba(0,0,0,0.4);
+    height: 100%;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.form-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.form-content {
+    padding: 40px;
+}
+
+.form-group-custom {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.btn-custom {
+    background: #0f9d58;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-custom:hover {
+    background: #0c7c45;
+}
+
+.required {
+    color: red;
+}
+
+.upload-box{
+    border:1px solid #e0e0e0;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+    background:#f9f9f9;
+    transition: all 0.3s ease;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container py-5">
+<div class="row justify-content-center">
+<div class="col-lg-7">
+
+<div class="form-container">
+
+<div class="banner-ramadhan">
+<div class="banner-overlay">
+<div>
+<h2 class="fw-bold">Lomba Ramadhan 1447 H</h2>
+<p class="mb-0">PT SSI - 2026</p>
+</div>
+</div>
+</div>
+
+<div class="form-content">
+<form id="formLomba">
+
+<!-- Peserta -->
+<div class="form-group-custom">
+<label class="form-label">Pilihan Peserta <span class="required">*</span></label>
+<select id="peserta" class="form-select" required>
+<option value="">-- Pilih Peserta --</option>
+<option value="Pegawai">Pegawai</option>
+<option value="Anak Pegawai">Anak Pegawai</option>
+</select>
+</div>
+
+<!-- Nama -->
+<div class="form-group-custom">
+<label class="form-label">Nama Partisipan <span class="required">*</span></label>
+<input type="text" id="nama" class="form-control" required>
+</div>
+
+<!-- No WA -->
+<div class="form-group-custom">
+<label class="form-label">No. Telepon / WhatsApp <span class="required">*</span></label>
+<input type="tel" id="noWa" class="form-control" pattern="[0-9]{10,15}" required>
+<small class="text-muted">Hanya angka 10-15 digit</small>
+</div>
+
+<!-- Lomba -->
+<div class="form-group-custom">
+<label class="form-label">Lomba yang Diikuti <span class="required">*</span></label>
+<select id="lomba" class="form-select" required>
+<option value="">-- Pilih Lomba --</option>
+<option value="video">Lomba Video Tema Ramadhan</option>
+<option value="mengaji_pegawai">Lomba Mengaji (Pegawai)</option>
+<option value="mengaji_anak">Lomba Mengaji (Anak Pegawai)</option>
+<option value="azan_pegawai">Lomba Azan Pegawai</option>
+<option value="azan_anak">Lomba Azan Anak Pegawai</option>
+<option value="kaligrafi">Lomba Kaligrafi Anak Pegawai</option>
+</select>
+</div>
+
+<!-- ====== UPLOAD VIDEO ====== -->
+<div id="videoSection" class="card shadow-sm mb-4 border-0 upload-card">
+  <div class="card-body">
+
+    <h5 class="fw-bold text-success mb-3">
+      <i class="bi bi-camera-video-fill me-2"></i>
+      Upload Video Evidence
+    </h5>
+
+    <label class="form-label">
+      Upload Video (Wajib kecuali Kaligrafi)
+    </label>
+
+    <input type="file" id="videoFile" class="form-control" accept="video/mp4">
+
+    <small class="text-muted">
+      MP4 maksimal 25MB ( Gunakan 480-Pixel )
+    </small>
+
+  </div>
+</div>
+
+
+
+<!-- ====== UPLOAD FOTO KALIGRAFI ====== -->
+<div id="fotoSection" class="card shadow-sm mb-4 border-0 upload-card d-none">
+  <div class="card-body">
+
+    <h5 class="fw-bold text-success mb-3">
+      <i class="bi bi-image-fill me-2"></i>
+      Upload Foto Kaligrafi
+    </h5>
+
+    <div class="mb-3">
+      <label class="form-label">Foto Hasil Kaligrafi</label>
+      <input type="file" id="foto1" class="form-control" accept="image/jpeg,image/png">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Foto Bersama Anak</label>
+      <input type="file" id="foto2" class="form-control" accept="image/jpeg,image/png">
+    </div>
+
+    <small class="text-muted">
+      JPG/PNG maksimal 5MB per foto
+    </small>
+
+  </div>
+</div>
+
+
+
+
+<div class="d-grid mt-4">
+<button type="submit" id="submitBtn" class="btn btn-custom btn-lg">
+<span id="btnText">KIRIM / SUBMIT</span>
+<span id="btnLoader" class="spinner-border spinner-border-sm ms-2 d-none"></span>
+</button>
+</div>
+
+</form>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbx6qHLMTVGLzmCmsG-yF8vJkH4MhKkAk0HZnLGV9EI9ZO2JIs4hDf6vj-Z2EGvyqhuw1g/exec";
+
+
+
+const form = document.getElementById("formLomba");
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const btnLoader = document.getElementById("btnLoader");
+
+// ==============================
+// AUTO HIDE / SHOW UPLOAD
+// ==============================
+const lombaSelect = document.getElementById("lomba");
+const videoSection = document.getElementById("videoSection");
+const fotoSection = document.getElementById("fotoSection");
+const videoInput = document.getElementById("videoFile");
+const foto1Input = document.getElementById("foto1");
+const foto2Input = document.getElementById("foto2");
+
+lombaSelect.addEventListener("change", function(){
+
+    const value = this.value;
+
+    if(value === "kaligrafi"){
+
+        videoSection.classList.add("d-none");
+        videoInput.value = "";
+
+        fotoSection.classList.remove("d-none");
+
+    } else {
+
+        fotoSection.classList.add("d-none");
+        foto1Input.value = "";
+        foto2Input.value = "";
+
+        videoSection.classList.remove("d-none");
+    }
+
+});
+
+
+// ==============================
+// VALIDASI FILE
+// ==============================
+function validateFile(file, type, maxSizeMB){
+    if(!file) return false;
+    if(!file.type.includes(type)) return false;
+    if(file.size > maxSizeMB * 1024 * 1024) return false;
+    return true;
+}
+
+
+// ==============================
+// CONVERT BASE64
+// ==============================
+function toBase64(file){
+    return new Promise((resolve, reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
+}
+
+
+// ==============================
+// SUBMIT FORM
+// ==============================
+form.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    btnLoader.classList.remove("d-none");
+    btnText.textContent = "Mengirim...";
+
+    try{
+
+        const peserta = document.getElementById("peserta").value;
+        const nama = document.getElementById("nama").value;
+        const noWa = document.getElementById("noWa").value;
+        const lomba = document.getElementById("lomba").value;
+
+        const video = videoInput.files[0];
+        const foto1 = foto1Input.files[0];
+        const foto2 = foto2Input.files[0];
+
+        // ===== VALIDASI BERDASARKAN LOMBA =====
+        if(lomba === "kaligrafi"){
+
+            if(!foto1 || !foto2){
+                throw "Untuk lomba kaligrafi wajib upload 2 foto.";
+            }
+
+            if(!validateFile(foto1,"image",5) || !validateFile(foto2,"image",5)){
+                throw "Foto harus JPG/PNG maksimal 5MB.";
+            }
+
+        } else {
+
+            if(!video){
+                throw "Untuk lomba ini wajib upload video.";
+            }
+
+            if(!validateFile(video,"video",100)){
+                throw "Video harus MP4 maksimal 100MB.";
+            }
+
+        }
+
+        // ===== CONVERT FILE =====
+        let videoBase64 = "";
+        let foto1Base64 = "";
+        let foto2Base64 = "";
+
+        if(video) videoBase64 = await toBase64(video);
+        if(foto1) foto1Base64 = await toBase64(foto1);
+        if(foto2) foto2Base64 = await toBase64(foto2);
+
+        // ===== DATA KIRIM =====
+        const data = {
+            peserta,
+            nama,
+            noWa,
+            lomba,
+            videoData: videoBase64,
+            foto1Data: foto1Base64,
+            foto2Data: foto2Base64,
+            videoName: video ? video.name : "",
+            foto1Name: foto1 ? foto1.name : "",
+            foto2Name: foto2 ? foto2.name : ""
+        };
+
+      
+
+        const response = await fetch(scriptURL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        });
+
+
+        const result = await response.json();
+
+        if(result.status === "success"){
+
+            showModal(
+                "success",
+                "Pendaftaran Berhasil!",
+                "Data Anda berhasil tersimpan. Terima kasih sudah berpartisipasi."
+            );
+
+            form.reset();
+            fotoSection.classList.add("d-none");
+            videoSection.classList.remove("d-none");
+
+        } else {
+            throw "Terjadi kesalahan saat menyimpan data.";
+        }
+
+    } catch(err){
+
+        showModal(
+            "error",
+            "Upload Gagal",
+            typeof err === "string" ? err : "Terjadi kesalahan. Periksa koneksi atau ukuran file."
+        );
+
+    }
+
+    submitBtn.disabled = false;
+    btnLoader.classList.add("d-none");
+    btnText.textContent = "KIRIM / SUBMIT";
+
+});
+
+
+// ==============================
+// MODAL STATUS
+// ==============================
+function showModal(type, title, message){
+
+    const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+    const icon = document.getElementById("modalIcon");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalMessage = document.getElementById("modalMessage");
+
+    if(type === "success"){
+        icon.innerHTML = "✅";
+        modalTitle.className = "fw-bold text-success";
+    }else{
+        icon.innerHTML = "❌";
+        modalTitle.className = "fw-bold text-danger";
+    }
+
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+
+    modal.show();
+}
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Modal Status -->
+<div class="modal fade" id="statusModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      
+      <div id="modalIcon" class="mb-3" style="font-size:60px;"></div>
+      
+      <h4 id="modalTitle" class="fw-bold"></h4>
+      <p id="modalMessage" class="text-muted"></p>
+      
+      <div class="mt-3">
+        <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
