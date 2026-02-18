@@ -1,0 +1,84 @@
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+
+    const tanggal = new Date();
+    const peserta = data.peserta;
+    const nama = data.nama;
+    const noWa = data.noWa;
+    const lomba = data.lomba;
+
+    const folder = DriveApp.getFolderById("1lhu5-kYRfWWEN0QeuFXxqu6Awd_JGTuE");
+
+    let videoUrl = "";
+    let foto1Url = "";
+    let foto2Url = "";
+
+    // ===============================
+    // UPLOAD VIDEO
+    // ===============================
+    if (data.videoData && data.videoName) {
+      const blobVideo = Utilities.newBlob(
+        Utilities.base64Decode(data.videoData),
+        "video/mp4",
+        data.videoName
+      );
+
+      const fileVideo = folder.createFile(blobVideo);
+      fileVideo.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      videoUrl = fileVideo.getUrl();
+    }
+
+    // ===============================
+    // UPLOAD FOTO 1
+    // ===============================
+    if (data.foto1Data && data.foto1Name) {
+      const blobFoto1 = Utilities.newBlob(
+        Utilities.base64Decode(data.foto1Data),
+        "image/jpeg",
+        data.foto1Name
+      );
+
+      const fileFoto1 = folder.createFile(blobFoto1);
+      fileFoto1.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      foto1Url = fileFoto1.getUrl();
+    }
+
+    // ===============================
+    // UPLOAD FOTO 2
+    // ===============================
+    if (data.foto2Data && data.foto2Name) {
+      const blobFoto2 = Utilities.newBlob(
+        Utilities.base64Decode(data.foto2Data),
+        "image/jpeg",
+        data.foto2Name
+      );
+
+      const fileFoto2 = folder.createFile(blobFoto2);
+      fileFoto2.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      foto2Url = fileFoto2.getUrl();
+    }
+
+    // Simpan ke Spreadsheet
+    sheet.appendRow([
+      tanggal,
+      peserta,
+      nama,
+      noWa,
+      lomba,
+      videoUrl,
+      foto1Url,
+      foto2Url
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
